@@ -5,7 +5,8 @@ import 'dart:convert';
 class APIService {
   Future<LoginResponseModel> login(LoginRequestModel requestModel) async {
     String url = "https://regres.in/api/login";
-    final response = await http.post(url as Uri, body: requestModel.toJson());
+    Uri uri = Uri.parse(url);
+    final response = await http.post(uri, body: requestModel.toJson());
     if (response.statusCode == 200 || response.statusCode == 400) {
       return LoginResponseModel.fromJson(json.decode(response.body));
     } else {

@@ -159,11 +159,8 @@ class _LoginPageState extends State<LoginPage> {
                                     isApiCallProcces = true;
                                   });
                                   apiService.login(requestModel).then((value) {
-                                    setState(() {
-                                      isApiCallProcces = false;
-                                    });
                                     if (value.token.isNotEmpty) {
-                                      const snackBar = SnackBar(
+                                      final snackBar = SnackBar(
                                         content: Text("Login Sucessful"),
                                       );
                                       scaffoldKey.currentState!.showBottomSheet(
@@ -175,6 +172,10 @@ class _LoginPageState extends State<LoginPage> {
                                       scaffoldKey.currentState!.showBottomSheet(
                                           (context) => snackBar);
                                     }
+                                  }).onError((error, stackTrace) {
+                                    setState(() {
+                                      isApiCallProcces = false;
+                                    });
                                   });
                                 }
                               },
